@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.portfolio.contactBackend.dto.LoginRequest;
 import com.portfolio.contactBackend.service.UserService;
-import java.util.Collections;
 
 @RestController
 @RequestMapping("/api/auth")

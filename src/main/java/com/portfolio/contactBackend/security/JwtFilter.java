@@ -31,12 +31,10 @@ public class JwtFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain)
             throws ServletException, IOException {
-
-        String authHeader = request.getHeader("Authorization");
+    	String authHeader = request.getHeader("Authorization");
         
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
-            System.out.println("ACCESS TOKEN: " + token);
             if( jwtUtil.validateToken(token) ) {
             	try {
                     String username = jwtUtil.extractUsername(token);
@@ -53,14 +51,12 @@ public class JwtFilter extends OncePerRequestFilter {
                             .setAuthentication(authToken);
 
                 } catch (ExpiredJwtException e) {
-                	System.out.println("Expired Token");
-                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                     
                     return;
                 }
             }
             else {
-            	System.out.println("Access Invalid");
             	response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
