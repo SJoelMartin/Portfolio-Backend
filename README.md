@@ -1,328 +1,273 @@
-# Portfolio Backend
+# AUTH.SYS API
 
-A full-stack portfolio application built with **Spring Boot**, **MySQL**, and **React**, featuring secure JWT authentication, contact management, email notifications, and an AI-powered Recruiter Assistant using Google Gemini.
+A robust, secure, and production-ready backend service built using **Java** and **Spring Boot** to power the enterprise applications. This project exposes RESTful APIs for handling business logic, authentication, and application data while following modern backend development best practices.
 
-## 🚀 Features
+The backend has been designed with scalability, security, and maintainability in mind, making it suitable for deployment in real-world environments.
 
-### 👤 User Authentication
+---
 
-* JWT-based authentication
-* Access token and refresh token support
-* BCrypt password encryption
-* Role-based authorization
-* Protected API endpoints
+## Features
 
-### 📩 Contact Form
-
-* Visitors can submit messages
-* Messages are stored in MySQL
-* Email notifications are sent automatically
-* Contact management for authenticated users
-
-### 🤖 AI Recruiter Assistant
-
-* Powered by Google Gemini API
-* Answers recruiter questions about the portfolio owner
-* Provides information about:
-
-  * Technical skills
-  * Projects
-  * Experience
-  * Education
-  * Achievements
-  * Career interests
-* Natural language responses
-* Secure API key handling using environment variables
-
-### 🔐 Security
-
+* RESTful API architecture
+* JWT-based Authentication
+* Access Token and Refresh Token implementation
+* Role-Based Access Control (RBAC)
+* Automatic token expiration and periodic token rotation
 * Spring Security integration
-* JWT filter for request validation
-* Stateless authentication
-* Password hashing with BCrypt
-* Environment variable-based secret management
-
-### 🌐 CORS Support
-
-* Configurable CORS settings
-* Frontend and backend separation
-
----
-
-# Tech Stack
-
-## Backend
-
-* Java 17+
-* Spring Boot
-* Spring Security
-* Spring Data JPA
-* Hibernate
-* Maven
-
-## Database
-
-* MySQL
-
-## Authentication
-
-* JWT
-* Refresh Tokens
-* BCrypt Password Encoder
-
-## AI Integration
-
-* Google Gemini API
-
-## Email Service
-
-* Spring Mail
-
-## Deployment
-
-* Backend: Northflank
-* Database: Railway MySQL
-* Frontend: React + Vite
+* Custom security filter chain
+* Secure session management
+* Layered architecture (Controller, Service, Repository)
+* Environment-based configuration
+* Input validation
+* Global exception handling
+* CORS configuration for frontend integration
+* Production deployment support
 
 ---
 
-# Project Structure
+## Tech Stack
 
-```
+| Technology                  | Purpose                        |
+| --------------------------- | ------------------------------ |
+| Java                        | Programming Language           |
+| Spring Boot                 | Backend Framework              |
+| Spring Security             | Authentication & Authorization |
+| JWT                         | Stateless Authentication       |
+| Maven                       | Dependency Management          |
+| MySQL                       | Relational Database            |
+| Spring Data JPA / Hibernate | ORM and Database Access        |
+| Postman                     | API Testing                    |
+| Northflank                  | Cloud Deployment Platform      |
+
+---
+
+## Project Structure
+
+```text
 src
-├── config
-│   ├── SecurityConfig
-│   └── CorsConfiguration
-├── controller
-│   ├── AuthController
-│   ├── ContactController
-│   ├── RecruiterAssistantController
-│   └── UserController
-├── dto
-├── entity
-├── exception
-├── repository
-├── security
-│   ├── JwtFilter
-│   └── JwtUtil
-├── service
-│   ├── UserService
-│   ├── RefreshTokenService
-│   ├── EmailService
-│   └── RecruiterAssistantService
-└── ContactBackendApplication
+├── main
+│   ├── java
+│   │   └── ...
+│   │       ├── controller
+│   │       ├── service
+│   │       ├── repository
+│   │       ├── model
+│   │       ├── dto
+│   │       ├── security
+│   │       ├── config
+│   │       ├── specification
+│   │       └── exception
+│   └── resources
+│       ├── application.properties
+│       └── ...
 ```
 
 ---
 
-# API Endpoints
+## Getting Started
 
-## Authentication
+### Prerequisites
 
-### Login
+* Java 21 (or the version used in this project)
+* Maven
+* PostgreSQL
+* Git
 
-```
-POST /api/auth/login
-```
-
-### Refresh Token
-
-```
-POST /api/user/refresh
-```
-
-### Register
-
-```
-POST /api/user/register
-```
-
----
-
-## Contact
-
-### Submit Contact Message
-
-```
-POST /api/contact/submit
-```
-
-Public endpoint.
-
----
-
-## AI Recruiter Assistant
-
-### Ask Questions
-
-```
-POST /api/recruiter-assistant
-```
-
-Example Request
-
-```json
-{
-  "question": "Why should I hire Joel?"
-}
-```
-
-Example Response
-
-```json
-{
-  "answer": "Joel has experience in Java, Spring Boot, React, MySQL, JWT authentication, and cloud deployment. He has built projects involving AI integration and full-stack development."
-}
-```
-
----
-
-# Security
-
-Protected endpoints require:
-
-```
-Authorization: Bearer <access_token>
-```
-
-Passwords are encrypted using BCrypt.
-
-Authentication is stateless using JWT.
-
----
-
-# Environment Variables
-
-### Database
-
-```
-DB_URL
-DB_USERNAME
-DB_PASSWORD
-```
-
-### JWT
-
-```
-JWT_SECRET
-ACCESS_TOKEN_EXPIRATION
-REFRESH_TOKEN_EXPIRATION
-```
-
-### Email
-
-```
-MAIL_USERNAME
-MAIL_PASSWORD
-```
-
-### Google Gemini API
-
-```
-GEMINI_API_KEY
-```
-
----
-
-# Local Setup
-
-### Clone Repository
+### Clone the Repository
 
 ```bash
-git clone https://github.com/SJoelMartin/Portfolio-Backend.git
+git clone https://github.com/<your-username>/<repository-name>.git
+cd <repository-name>
 ```
 
-### Navigate to Project
+### Configure Environment
+
+Configure the required environment variables and database credentials before running the application.
+
+Example:
+
+```properties
+spring.datasource.url=...
+spring.datasource.username=...
+spring.datasource.password=...
+
+jwt.secret=...
+jwt.access-token.expiration=...
+jwt.refresh-token.expiration=...
+```
+
+---
+
+## Run the Application
+
+Using Maven:
 
 ```bash
-cd Portfolio-Backend
+./mvnw spring-boot:run
 ```
 
-### Configure Environment Variables
-
-Create local variables or IDE environment variables:
-
-```
-DB_URL=
-DB_USERNAME=
-DB_PASSWORD=
-JWT_SECRET=
-MAIL_USERNAME=
-MAIL_PASSWORD=
-GEMINI_API_KEY=
-```
-
-### Build
-
-```bash
-mvn clean install
-```
-
-### Run
+or
 
 ```bash
 mvn spring-boot:run
 ```
 
-Backend runs on:
+The application will start on:
 
-```
+```text
 http://localhost:8080
 ```
 
 ---
 
-# Deployment
+## Security
 
-### Backend
+Security is implemented using **Spring Security** together with **JWT (JSON Web Tokens)** to provide a stateless authentication mechanism.
 
-Northflank
+### Authentication Features
 
-### Database
+* JWT-based authentication
+* Access Token generation
+* Refresh Token generation
+* Automatic access token expiration
+* Refresh token validation
+* Secure token rotation for maintaining authenticated sessions
+* Stateless authentication without server-side session storage
 
-Railway MySQL
+### Spring Security Implementation
 
-### Frontend
+The application includes:
 
-Vercel
+* Custom Security Filter Chain
+* JWT Authentication Filter
+* Protected API endpoints
+* Role-based request authorization (extensible)
+* Secure request validation
+* CORS configuration for frontend communication
 
-### Environment Variables
-
-All secrets are stored securely using platform environment variables and are never committed to GitHub.
-
----
-
-# AI Recruiter Assistant Examples
-
-### Questions Supported
-
-* Tell me about Joel.
-* What technologies does Joel know?
-* Why should I hire Joel?
-* Describe Joel's projects.
-* What is Joel's experience with Spring Boot?
-* What cloud technologies has Joel worked with?
-* What are Joel's strengths?
+This architecture ensures secure communication between the frontend and backend while maintaining user session privacy and reducing authentication risks.
 
 ---
 
-# Future Enhancements
+## Exception Handling
 
-* Resume summarization
-* Semantic search with embeddings
-* Chat history persistence
-* Conversation memory
-* Voice-enabled assistant
-* Admin dashboard analytics
-* Vector database integration
-* Multi-model AI support
+The application uses centralized **Global Exception Handling** to provide consistent and meaningful API responses.
+
+Benefits include:
+
+* Standardized error responses
+* Validation error handling
+* Authentication and authorization exception handling
+* Improved debugging and maintainability
+* Cleaner controller and service implementations
 
 ---
 
-# Author
+## API Testing
 
-Joel Martin
+All REST endpoints were thoroughly tested using **Postman** to verify:
 
-M.Tech Integrated Computer Science and Engineering
+* Authentication flow
+* Access token generation
+* Refresh token workflow
+* Protected endpoint authorization
+* Request validation
+* Error responses
+* API reliability
 
-Java | Spring Boot | React | MySQL | JWT | REST APIs | AI Integration | Cloud Deployment
+---
+
+## Deployment
+
+The backend has been successfully deployed to **Northflank**, enabling secure cloud hosting and public accessibility.
+
+Deployment includes:
+
+* Production environment configuration
+* Environment variable management
+* Secure database connectivity
+* Cloud-hosted REST APIs
+* Continuous accessibility for frontend integration
+
+The deployed backend has been integrated with the Portfolio frontend, allowing secure end-to-end communication between the client application and server.
+
+---
+
+## API
+
+The backend exposes REST endpoints consumed by the frontend application.
+
+Typical endpoints include:
+
+```text
+POST /api/auth/login
+POST /api/auth/refresh
+POST /api/contact/submit
+GET  /api/...
+POST /api/...
+```
+
+---
+
+## Configuration
+
+Application configuration is managed through Spring Boot configuration files and environment variables.
+
+Sensitive information such as:
+
+* Database credentials
+* JWT secret keys
+* API keys
+* Cloud configuration
+* Application secrets
+
+should never be committed to the repository.
+
+---
+
+## Development Principles
+
+This project follows modern backend engineering principles including:
+
+* Clean Code
+* SOLID Principles
+* Separation of Concerns
+* Layered Architecture
+* Dependency Injection
+* RESTful API Standards
+* Stateless Authentication
+* Secure API Design
+* Scalable and Maintainable Development
+
+---
+
+## Future Enhancements
+
+* Swagger / OpenAPI Documentation
+* CI/CD Pipeline
+* API Rate Limiting
+* Monitoring and Centralized Logging
+* Performance Optimization
+
+---
+
+## Contributing
+
+Contributions, suggestions, and improvements are welcome.
+
+To contribute:
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit your changes.
+4. Submit a Pull Request.
+
+---
+
+## License
+
+This project is provided for educational and portfolio purposes. Feel free to explore the codebase, learn from the implementation, and use it as a reference for building secure Spring Boot applications.
+
+---
+
+Developed with **Java**, **Spring Boot**, **Spring Security**, and **JWT Authentication** to deliver a secure, scalable, cloud-deployed backend following modern software engineering practices.
